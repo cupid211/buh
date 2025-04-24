@@ -1,4 +1,4 @@
--- drop database shop;
+drop database shop;
 create  database  shop;
 use shop;
 
@@ -19,7 +19,7 @@ foreign key (idPosition) references positions(id));
 create table if not exists money( -- вносят все, кроме уборщиков
 id bigint not null primary key auto_increment,
 idEmployee int not null,
-mDate dateTime not null default now(),
+mDate dateTime default now(), -- текущая дата
 type boolean not null,
 money double not null,
 foreign key (idEmployee) references employees(id));
@@ -54,5 +54,12 @@ insert into money (idEmployee, type, money) values (2, 0, 6 );
 insert into money (idEmployee, type, money) values (4, 1, 77 );
 insert into money (idEmployee, type, money) values (3, 0, 10);
 
-select sum(money) from money where type=0;
-select sum(money) from money where type=1;
+select sum(money) from money where type=0; -- Сумма
+select avg(money) from money where type=1;-- Среднее
+select count(idEmployee) from statistics where id=3 group by idEmployee; -- количество
+
+select * from employees order by idPosition;-- по возрастанию
+select * from employees order by idPosition desc; -- по убыванию
+
+select employees.fio, type, money from money -- объединение нескольких таблиц
+join employees on money.idEmployee=employees.id;
