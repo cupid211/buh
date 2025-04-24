@@ -1,4 +1,4 @@
-drop database shop;
+-- drop database shop;
 create  database  shop;
 use shop;
 
@@ -24,10 +24,10 @@ type boolean not null,
 money double not null,
 foreign key (idEmployee) references employees(id));
 
-create table if not exists statistics( -- получают информацию бухгалетра, начальники отдела и директор
+create table if not exists statistics( -- получают информацию бухгалетра, начальники отдела и директор 3 5 6
 id bigint not null primary key auto_increment,
 idEmployee int not null,
-sDate dateTime  not null,
+sDate dateTime  not null default now(),
 sumExpenses double not null,-- расходы
 sumIncome double not null,-- доходы
 sum double not null,
@@ -54,3 +54,5 @@ insert into money (idEmployee, type, money) values (2, 0, 6 );
 insert into money (idEmployee, type, money) values (4, 1, 77 );
 insert into money (idEmployee, type, money) values (3, 0, 10);
 
+select sum(money) from money where type=0;
+select sum(money) from money where type=1;
